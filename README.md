@@ -2,17 +2,19 @@
 
 A production-ready Full Stack Lead Management System built for **leaddesk mini**, a premium AI and software agency. This project includes a high-converting, modern landing page, a secure client-side validated Lead/RFP form, an Express Node.js API, and a beautiful Admin console for processing received leads.
 
-**Live Demo**
-Landing Page
-lead-deskmini-git-main-sanvitha-s-projects.vercel.app
+## 🌐 Live Demo
 
-Admin Dashboard
+**Landing Page**
+
+[lead-deskmini-git-main-sanvitha-s-projects.vercel.app](https://lead-deskmini-git-main-sanvitha-s-projects.vercel.app)
+
+**Admin Dashboard**
 
 [https://lead-deskmini-git-main-sanvitha-s-projects.vercel.app/admin/login](https://lead-deskmini-git-main-sanvitha-s-projects.vercel.app/admin/login)
 
-Backend API
+**Backend API**
 
-[https://your-render-url.onrender.com](https://leaddeskmini-u96z.onrender.com/)
+[https://leaddeskmini-u96z.onrender.com](https://leaddeskmini-u96z.onrender.com/)
 
 ## Project Overview
 
@@ -22,68 +24,82 @@ Visitors can submit project requirements through a professional landing page. Ev
 
 Administrators authenticate using JWT-based authentication before accessing protected routes where they can view, manage and update the status of incoming leads.
 
-## Features
-Landing Page
-Modern responsive UI
-Company introduction
-Service highlights
-Client enquiry form
-Form validation
-Mobile friendly
+## ✨ Features
+
+- ✅ Responsive Landing Page
+- ✅ Lead Submission Form
+- ✅ Client-side Validation
+- ✅ JWT Authentication
+- ✅ Protected Admin Dashboard
+- ✅ Lead CRUD Operations
+- ✅ Status Management
+- ✅ Secure Password Hashing (PBKDF2)
+- ✅ Supabase PostgreSQL
+- ✅ Responsive Design
+- ✅ Production Deployment
 
 ## Lead Submission
-Users can submit
-Name
-Email
-Company
-Budget
-Project Type
-Project Description
+- ✅ Users can submit
+- ✅ Name
+- ✅ Email
+- ✅ Company
+- ✅ Budget
+- ✅ Project Type
+- ✅ Project Description
 All submitted data is validated before being stored in the database.
 
 ## Admin Dashboard
 
 Secure dashboard for administrators.
-Features include
-Secure Login
-View all leads
-Update lead status
-Delete leads
-Logout
-Protected Routes using JWT
-Authentication
+- ✅ Features include
+- ✅ Secure Login
+- ✅ View all leads
+- ✅ Update lead status
+- ✅ Delete leads
+- ✅ Logout
+- ✅ Protected Routes using JWT
+- ✅ Authentication
 
-## The application uses JWT (JSON Web Token) authentication instead of hardcoded credentials.
+##  Authentication
 
-Authentication flow:
+The application uses JWT (JSON Web Token) authentication instead of hardcoded credentials. After successful login, the server generates a JWT which is stored in the browser and sent with every protected request. The backend verifies the token before allowing access to admin APIs.
 
-Admin Login
-       │
-       ▼
-Express Backend
-       │
-Verify Username & Password
-       │
-       ▼
-Generate JWT Token
-       │
-       ▼
-Token stored in browser
-(localStorage)
-       │
-       ▼
-Every protected request sends
+```text
+User Login
+      │
+      ▼
+Express API
+      │
+Verify Username
+      │
+Hash Password (PBKDF2)
+      │
+Compare Stored Hash
+      │
+Generate JWT
+      │
+Store JWT in localStorage
+      │
+Protected API Requests
+      │
+JWT Middleware Verification
+```
 
-Authorization:
-Bearer <JWT Token>
-       │
-       ▼
-JWT Middleware verifies token
-       │
-       ▼
-Access Granted
+## Input Validation
 
-Only authenticated users can access the admin dashboard and protected API endpoints.
+The application validates:
+
+- Required fields
+
+- Email format
+
+- Empty inputs
+
+- JWT Authorization
+
+- Invalid routes
+
+- Unauthorized requests
 
 ## Password Security
 
@@ -96,24 +112,29 @@ Native Node.js Crypto module
 During login the password is hashed again and compared with the stored hash.
 
 ## Data Model
-**Users Table**
-Field	        Type
-id	           UUID
-username	     VARCHAR
-password	     Hashed Password
-created_at	  Timestamp
 
-## Leads Table
-Field	          Type
-id	             UUID
-name	          VARCHAR
-email	          VARCHAR
-company	       VARCHAR
-budget	       VARCHAR
-project_type	 VARCHAR
-message	       TEXT
-status	       New / Contacted / Closed
-created_at	    Timestamp
+### Users
+
+| Field | Type |
+|-------|------|
+| id | UUID |
+| username | VARCHAR |
+| password | Hashed Password |
+| created_at | Timestamp |
+
+###  Leads Table
+
+|Field	 |   Type |
+|--------|--------|
+|id   |  UUID |
+|name	|   VARCHAR|
+|email	 |  VARCHAR |
+|company |  VARCHAR |
+|budget  |   VARCHAR |
+|project_type | VARCHAR|
+|message |  TEXT|
+|status |   New / Contacted / Closed|
+|created_at |	   Timestamp
 
 ## System Architecture
                 React + Vite
@@ -155,6 +176,30 @@ leaddesk/
 ```
 
 ---
+
+## Request Flow
+
+```text
+Visitor
+    │
+    ▼
+Landing Page
+    │
+React Form Validation
+    │
+    ▼
+Express API
+    │
+JWT Middleware (Admin APIs)
+    │
+    ▼
+Supabase Database
+    │
+    ▼
+Admin Dashboard
+    │
+Update Status
+```
 
 ## Tech Stack
 
