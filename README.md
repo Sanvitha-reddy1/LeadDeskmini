@@ -2,6 +2,132 @@
 
 A production-ready Full Stack Lead Management System built for **leaddesk mini**, a premium AI and software agency. This project includes a high-converting, modern landing page, a secure client-side validated Lead/RFP form, an Express Node.js API, and a beautiful Admin console for processing received leads.
 
+**Live Demo**
+Landing Page
+lead-deskmini-git-main-sanvitha-s-projects.vercel.app
+
+Admin Dashboard
+
+[https://lead-deskmini-git-main-sanvitha-s-projects.vercel.app/admin/login](https://lead-deskmini-git-main-sanvitha-s-projects.vercel.app/admin/login)
+
+Backend API
+
+[https://your-render-url.onrender.com](https://leaddeskmini-u96z.onrender.com/)
+
+## Project Overview
+
+LeadDesk Mini simulates the workflow used by software agencies to receive project inquiries from potential clients.
+
+Visitors can submit project requirements through a professional landing page. Every submission is securely stored in Supabase and immediately becomes available inside the administrator dashboard.
+
+Administrators authenticate using JWT-based authentication before accessing protected routes where they can view, manage and update the status of incoming leads.
+
+## Features
+Landing Page
+Modern responsive UI
+Company introduction
+Service highlights
+Client enquiry form
+Form validation
+Mobile friendly
+
+## Lead Submission
+Users can submit
+Name
+Email
+Company
+Budget
+Project Type
+Project Description
+All submitted data is validated before being stored in the database.
+
+## Admin Dashboard
+
+Secure dashboard for administrators.
+Features include
+Secure Login
+View all leads
+Update lead status
+Delete leads
+Logout
+Protected Routes using JWT
+Authentication
+
+## The application uses JWT (JSON Web Token) authentication instead of hardcoded credentials.
+
+Authentication flow:
+
+Admin Login
+       │
+       ▼
+Express Backend
+       │
+Verify Username & Password
+       │
+       ▼
+Generate JWT Token
+       │
+       ▼
+Token stored in browser
+(localStorage)
+       │
+       ▼
+Every protected request sends
+
+Authorization:
+Bearer <JWT Token>
+       │
+       ▼
+JWT Middleware verifies token
+       │
+       ▼
+Access Granted
+
+Only authenticated users can access the admin dashboard and protected API endpoints.
+
+## Password Security
+
+Administrator passwords are never stored in plain text.
+Passwords are hashed using
+
+PBKDF2
+Unique Salt
+Native Node.js Crypto module
+During login the password is hashed again and compared with the stored hash.
+
+## Data Model
+**Users Table**
+Field	        Type
+id	           UUID
+username	     VARCHAR
+password	     Hashed Password
+created_at	  Timestamp
+
+## Leads Table
+Field	          Type
+id	             UUID
+name	          VARCHAR
+email	          VARCHAR
+company	       VARCHAR
+budget	       VARCHAR
+project_type	 VARCHAR
+message	       TEXT
+status	       New / Contacted / Closed
+created_at	    Timestamp
+
+## System Architecture
+                React + Vite
+                     │
+                     │ REST API
+                     ▼
+              Express.js Backend
+                     │
+          JWT Authentication Middleware
+                     │
+                     ▼
+             Supabase PostgreSQL
+
+            
 ## Project Structure
 ```text
 leaddesk/
@@ -114,41 +240,13 @@ Vite will launch the web application on `http://localhost:3000`.
 
 ---
 
-## Supabase Database Setup
-
-Follow these steps to configure your PostgreSQL instance on Supabase:
-
-1. Create a free account at [Supabase](https://supabase.com).
-2. Create a new project named `leaddesk mini`.
-3. Locate the **SQL Editor** in the left sidebar menu.
-4. Copy the contents of `backend/schema.sql` and run the script in the SQL editor:
-   ```sql
-   CREATE TABLE IF NOT EXISTS leads (
-       id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-       name VARCHAR(255) NOT NULL,
-       email VARCHAR(255) NOT NULL,
-       company VARCHAR(255),
-       budget VARCHAR(100),
-       project_type VARCHAR(100),
-       message TEXT,
-       status VARCHAR(50) DEFAULT 'New' CHECK (status IN ('New', 'Contacted', 'Closed')),
-       created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
-   );
-
-   CREATE INDEX IF NOT EXISTS idx_leads_search ON leads(name, email, company);
-
-   CREATE TABLE IF NOT EXISTS users (
-       id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-       username VARCHAR(255) UNIQUE NOT NULL,
-       password VARCHAR(255) NOT NULL,
-       created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
-   );
-   ```
-5. Navigate to **Project Settings** > **API** in the sidebar.
-6. Retrieve your **Project URL** (`SUPABASE_URL`) and **Anon Public API Key** (`SUPABASE_ANON_KEY`).
-7. Paste these values into your `backend/.env` file. Restart the backend server. The database initialization script will auto-seed the admin user.
-
----
+## Deployment
+**Frontend**
+Vercel
+**Backend**
+Render
+**Database**
+Supabase
 
 ## Deployment Steps
 
@@ -181,3 +279,42 @@ Follow these steps to configure your PostgreSQL instance on Supabase:
    - `ADMIN_PASSWORD` = Your custom admin password
    - `JWT_SECRET` = A strong secret string
 5. Click **Create Web Service**.
+
+## Screenshots
+Landing Page
+
+<img width="1907" height="897" alt="Screenshot 2026-07-25 110251" src="https://github.com/user-attachments/assets/f3254f5e-c164-470c-a7c5-03813b2278ac" />
+
+
+Lead Submission
+
+<img width="1902" height="895" alt="Screenshot 2026-07-25 141544" src="https://github.com/user-attachments/assets/88a7f232-2323-43a5-8200-36d2a877f9b8" />
+
+Admin Login
+
+<img width="1907" height="902" alt="Screenshot 2026-07-25 110232" src="https://github.com/user-attachments/assets/73c543f0-8f6c-41bb-838e-8ad25c9a48b4" />
+
+Dashboard
+
+<img width="1912" height="892" alt="Screenshot 2026-07-25 110221" src="https://github.com/user-attachments/assets/6dc03751-92cc-4c97-bc78-27871747be80" />
+
+Lead Status Update
+
+<img width="1896" height="897" alt="Screenshot 2026-07-25 141745" src="https://github.com/user-attachments/assets/efcad8aa-108a-4d22-9cde-11eeedf5e538" />
+
+
+## Future Improvements
+Real-time dashboard updates using Supabase Realtime
+Lead search and filtering
+Pagination
+Email notifications
+Dark mode
+Analytics Dashboard
+Role-based access control
+Export leads to CSV
+Author
+
+**Sanvitha Reddy**
+
+GitHub:
+https://github.com/Sanvitha-reddy1
